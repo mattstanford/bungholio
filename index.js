@@ -29,12 +29,22 @@ async function sendSMS(item) {
   });
 }
 
+async function testSMS() {
+  return client.messages.create({
+    body: `Test from server!`,
+    from: process.env.twilioFrom,
+    to: process.env.twilioTo
+  });
+}
+
 async function run() {
   console.log('');
   console.log(`Starting at ${moment().toISOString()}`);
   const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
+
+  await testSMS();
 
   await page.setViewport({
     width: 1680,
